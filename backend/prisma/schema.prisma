@@ -1,0 +1,102 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+  binaryTargets = ["native", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model project {
+  id           Int       @id @default(autoincrement())
+  project_name String    @db.VarChar(250)
+  created_by   Int?
+  created_at   DateTime? @default(now())
+  createdByUser users?    @relation("ProjectCreator", fields: [created_by], references: [id], onDelete: SetNull, onUpdate: NoAction)
+  tasks        tasks[]
+
+  @@index([created_by], map: "created_by")
+}
+
+model task_files {
+  id          Int      @id @default(autoincrement())
+  task_id     Int
+  file_name   String   @db.VarChar(250)
+  file_path   String   @db.VarChar(250)
+  file_type   String   @db.VarChar(50)
+  description String?  @db.Text
+  uploaded_by Int?
+  uploaded_at DateTime @default(now())
+  tasks       tasks    @relation(fields: [task_id], references: [id], onDelete: Cascade)
+  uploader    users?   @relation(fields: [uploaded_by], references: [id], onDelete: SetNull)
+
+  @@index([task_id], map: "task_id")
+  @@index([uploaded_by], map: "uploaded_by")
+}
+
+model tasks {
+  id           Int                @id @default(autoincrement())
+  task_name    String?            @db.VarChar(250)
+  task_status  tasks_task_status?
+  task_assign  Int?
+  task_project Int?
+  deadline     DateTime?
+  file         String?            @db.VarChar(250)
+  task_files   task_files[]
+  project      project?           @relation(fields: [task_project], references: [id], onDelete: Cascade)
+  users        users?             @relation(fields: [task_assign], references: [id], onDelete: SetNull, onUpdate: NoAction)
+
+  @@index([task_project], map: "fk_project")
+  @@index([task_assign], map: "task_assign")
+}
+
+model users {
+  id              Int           @id @default(autoincrement())
+  username        String        @unique @db.VarChar(250)
+  role            users_role    @default(staf)
+  password        String        @db.VarChar(250)
+  created_at      DateTime?     @default(now())
+  status          users_status  @default(Pending)
+  createdProjects project[]     @relation("ProjectCreator")
+  tasks           tasks[]
+  uploadedFiles   task_files[]
+  notes           notes[]
+}
+
+enum users_role {
+  manager
+  staf
+}
+
+enum users_status {
+  Pending
+  Approved
+  Rejected
+}
+
+enum tasks_task_status {
+  To_Do
+  On_Progress
+  Done
+}
+
+model activity_logs {
+  id         Int       @id @default(autoincrement())
+  actor      String    @db.VarChar(250)
+  action     String    @db.VarChar(250)
+  target     String    @db.VarChar(250)
+  created_at DateTime? @default(now())
+}
+
+model notes {
+  id         Int       @id @default(autoincrement())
+  content    String    @db.Text
+  created_by Int?
+  created_at DateTime? @default(now())
+  updated_at DateTime? @updatedAt
+  user       users?    @relation(fields: [created_by], references: [id], onDelete: SetNull)
+
+  @@index([created_by])
+}
