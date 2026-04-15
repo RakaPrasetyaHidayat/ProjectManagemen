@@ -1,0 +1,313 @@
+:root {
+  --background: #121212;
+  --foreground: #ffffff;
+  --border: #333333;
+  --muted-foreground: #b0b0b0;
+  --primary: #ffffff;
+  --radius: 0.5rem;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  border-color: var(--border);
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.glass-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  border-color: #444444;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+/* Ant Design Table Overrides */
+.ant-table {
+  background: transparent !important;
+  color: var(--foreground) !important;
+}
+
+.ant-table-thead > tr > th {
+  background: transparent !important;
+  color: var(--muted-foreground) !important;
+  border-bottom: 1px solid var(--border) !important;
+  font-weight: 600 !important;
+}
+
+.ant-table-tbody > tr > td {
+  border-bottom: 1px solid var(--border) !important;
+  color: #e0e0e0 !important;
+}
+
+.ant-table-tbody > tr:hover > td {
+  background: rgba(51, 51, 51, 0.5) !important;
+}
+
+/* Pagination */
+.ant-pagination-item, .ant-pagination-prev, .ant-pagination-next {
+  background: transparent !important;
+  border-color: var(--border) !important;
+}
+
+.ant-pagination-item a {
+  color: var(--muted-foreground) !important;
+}
+
+.ant-pagination-item-active {
+  border-color: #fafafa !important;
+}
+
+.ant-pagination-item-active a {
+  color: #fafafa !important;
+}
+
+/* Modal */
+.ant-modal-content {
+  background: #121212 !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius) !important;
+}
+
+.ant-modal-header {
+  background: transparent !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+
+.ant-modal-title {
+  color: var(--foreground) !important;
+  font-weight: 600 !important;
+}
+
+/* Input */
+.ant-input {
+  background: #121212 !important;
+  border: 1px solid var(--border) !important;
+  color: var(--foreground) !important;
+}
+
+.ant-input:focus {
+  border-color: var(--foreground) !important;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Button */
+.ant-btn {
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+}
+
+.ant-btn-primary {
+  background: #ffffff !important;
+  color: #121212 !important;
+  border: none !important;
+}
+
+.ant-btn-primary:hover {
+  background: #e0e0e0 !important;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #27272a;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #3f3f46;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Utility Classes */
+.text-muted { color: var(--muted-foreground); }
+.text-small { font-size: 0.875rem; }
+.font-medium { font-weight: 500; }
+
+/* ─── MOBILE RESPONSIVE STYLES ─────────────────────────────────────────────── */
+
+/* Mobile-first responsive utilities */
+@media (max-width: 768px) {
+  :root {
+    font-size: 14px;
+  }
+
+  body {
+    font-size: 14px;
+  }
+
+  /* Hide scrollbar on mobile for cleaner look */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+}
+
+@media (max-width: 640px) {
+  :root {
+    font-size: 13px;
+  }
+
+  /* Responsive headings */
+  h1 {
+    font-size: 24px !important;
+  }
+
+  h2 {
+    font-size: 20px !important;
+  }
+
+  h3 {
+    font-size: 16px !important;
+  }
+
+  /* Responsive main content padding */
+  main {
+    padding: 12px 16px !important;
+  }
+
+  /* Ant Design responsive overrides */
+  .ant-btn {
+    height: 32px !important;
+    padding: 0 12px !important;
+    font-size: 13px !important;
+  }
+
+  .ant-btn-lg {
+    height: 36px !important;
+  }
+
+  /* Modal responsive */
+  .ant-modal {
+    max-width: 95vw !important;
+  }
+
+  .ant-modal-content {
+    border-radius: 8px !important;
+  }
+
+  /* Input responsive */
+  .ant-input,
+  .ant-input-number,
+  .ant-select {
+    font-size: 13px !important;
+    height: 32px !important;
+  }
+
+  /* Table responsive adjustments */
+  .ant-table {
+    font-size: 12px !important;
+  }
+
+  .ant-table-thead > tr > th {
+    padding: 8px 4px !important;
+    font-size: 11px !important;
+  }
+
+  .ant-table-tbody > tr > td {
+    padding: 8px 4px !important;
+    font-size: 12px !important;
+  }
+
+  /* Form responsive */
+  .ant-form-item {
+    margin-bottom: 12px !important;
+  }
+
+  .ant-form-item-label > label {
+    font-size: 12px !important;
+  }
+
+  /* Pagination responsive */
+  .ant-pagination {
+    margin-top: 12px !important;
+  }
+
+  .ant-pagination-item,
+  .ant-pagination-prev,
+  .ant-pagination-next {
+    min-width: 28px !important;
+    height: 28px !important;
+    line-height: 28px !important;
+    font-size: 12px !important;
+  }
+
+  /* Menu responsive */
+  .ant-menu {
+    font-size: 13px !important;
+  }
+
+  .ant-menu-item,
+  .ant-menu-submenu-title {
+    padding-inline: 12px !important;
+    height: 36px !important;
+    line-height: 36px !important;
+  }
+
+  /* Glass card responsive padding */
+  .glass-card {
+    padding: 12px 16px !important;
+  }
+}
+
+/* Tablet and larger (md breakpoint) */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .ant-btn {
+    height: 34px !important;
+    padding: 0 16px !important;
+  }
+}
+
+/* Utilities for responsive hiding */
+.hide-mobile {
+  display: none;
+}
+
+.show-mobile {
+  display: block;
+}
+
+@media (min-width: 769px) {
+  .hide-mobile {
+    display: block !important;
+  }
+
+  .show-mobile {
+    display: none !important;
+  }
+}
+
