@@ -1,0 +1,34 @@
+{
+  "version": 2,
+  "env": {
+    "NODE_ENV": "production"
+  },
+  "routes": [
+    {
+      "src": "/uploads/(.*)",
+      "dest": "/uploads/$1",
+      "headers": {
+        "Cache-Control": "public, max-age=604800, immutable"
+      }
+    },
+    {
+      "src": "/api/(.*)",
+      "dest": "app.ts",
+      "headers": {
+        "Cache-Control": "no-store, must-revalidate",
+        "X-Content-Type-Options": "nosniff",
+        "X-Frame-Options": "DENY"
+      }
+    },
+    {
+      "src": "/(.*)",
+      "dest": "app.ts"
+    }
+  ],
+  "functions": {
+    "app.ts": {
+      "memory": 1024,
+      "maxDuration": 60
+    }
+  }
+}
